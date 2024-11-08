@@ -1,0 +1,58 @@
+version: 2
+
+seeds:
+  - name: dim_subscription_example
+    config:
+      column_types:
+        subscription_id: text
+        user_id: int
+        tier: decimal(32,2)
+        is_active: boolean
+        subscription_mrc: decimal(32,2)
+        record_start_date: date
+        record_end_date: date
+        is_current_record: boolean
+        record_created_dttm: timestamptz
+        record_updated_dttm: timestamptz
+
+  - name: fact_subscription_example
+    config:
+      column_types:
+        event_date: date
+        event_type: text
+        source_id: int
+        user_id: int
+        tier: decimal(32,2)
+        net_mrc_amt: decimal(32,2)
+        net_subscriber_cnt: int
+        add_cnt: int
+        remove_cnt: int
+        readd_cnt: int
+        upgrade_cnt: int
+        downgrade_cnt: int
+        prev_tier: decimal(32,2)
+        time_to_deact_days: int
+        time_to_react_days: int
+        record_created_dttm: timestamptz
+
+  - name: fact_subscription_activity_monthly_example
+    config:
+      column_types:
+        ds: date
+        begin_base_mrc: decimal(32,2)
+        begin_base_cnt: int
+        tier_1299_cnt: int
+        tier_799_cnt: int
+        tier_099_cnt: int
+        net_subscriber_cnt: int
+        growth_rate: decimal(32,4)
+        net_mrc_amt: decimal(32,2)
+        add_cnt: int
+        readd_cnt: int
+        avg_days_to_readd: decimal(32,2)
+        upgrade_cnt: int
+        downgrade_cnt: int
+        remove_cnt: int
+        churn_rate: decimal(32,4)
+
+

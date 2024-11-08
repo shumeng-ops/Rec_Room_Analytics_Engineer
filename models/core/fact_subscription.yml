@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: fact_subscription
+    description: "Provides subscription related measures by user and day for adds and removes."
+    columns:
+      - name: event_date
+        data_type: date
+        description: "The date that the activity occurred."
+
+      - name: event_type
+        data_type: text
+        description: "The type of subscription event, either a start or an end."
+
+      - name: source_id
+        data_type: int
+        description: "The record ID from the source table."
+
+      - name: user_id
+        data_type: int
+        description: "The user's unique identifier."
+
+      - name: tier
+        data_type: decimal(32,2)
+        description: "The membership tier associated with the event."
+
+      - name: net_mrc_amt
+        data_type: decimal(32,2)
+        description: "The net change in monthly recurring charges (MRC) for the user."
+
+      - name: net_subscriber_cnt
+        data_type: int
+        description: "The net change in the number of active subscribers."
+
+      - name: add_cnt
+        data_type: int
+        description: "The number of subscribers who stated a subscription."
+
+      - name: remove_cnt
+        data_type: int
+        description: "The number of subscribers who ended a subscription."
+
+      - name: readd_cnt
+        data_type: int
+        description: "The number of subscribers who previously had a subscription and reactivated."
+
+      - name: upgrade_cnt
+        data_type: int
+        description: > 
+          The number of subscribers who started a subscription at a higher tier than they
+          had previously.
+
+      - name: downgrade_cnt
+        data_type: int
+        description: > 
+          The number of subscribers who started a subscription at a lower tier than they
+          had previously.
+
+      - name: prev_tier
+        data_type: decimal(32,2)
+        description: "The previous subscription tier the user had if they had one previously."
+
+      - name: time_to_deact_days
+        data_type: int
+        description: >
+          The number of days the subscription was active before the user deactivated. Only applies on "end" events.
+
+      - name: time_to_react_days
+        data_type: int
+        description: >
+          The number of days that passed before the subscriber reactivated. Only applies to "start" events, and will 
+          be NULL for new users. 
+
+      - name: record_created_dttm
+        data_type: timestamptz
+        description: "The date and time the record was first created."
+
+

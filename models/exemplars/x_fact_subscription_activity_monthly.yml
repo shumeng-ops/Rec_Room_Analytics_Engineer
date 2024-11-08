@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: x_fact_subscription_activity_monthly
+    columns:
+      - name: diff_count
+        tests:
+          - accepted_values:
+              values: [0]

@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: dim_subscription
+    description: "Provides point-in-time (type 2) view of members who have ever had a subscription."
+
+    columns:
+      - name: subscription_id
+        data_type: text
+        description: "A GUID that uniquely identifies a row in the dim_subscription table."
+
+      - name: user_id
+        data_type: int
+        description: "The user's unique identifier."
+
+      - name: tier
+        data_type: decimal(32,2)
+        description: >
+          The user's current membership tier in decimal format. In the case of an inactive subscriptions, this will be 
+          the last active subscription tier they had.
+
+      - name: is_active
+        data_type: boolean
+        description: "Indicates if the subscription is active in the period or not. True if the subscriber is active."
+
+      - name: subscription_mrc
+        data_type: decimal(32,2)
+        description: >
+          The monthly recurring charge (MRC) for active subscribers. For inactive subscribers, this will be 0.
+
+      - name: record_start_date
+        data_type: date
+        description: "The date this record is valid from."
+
+      - name: record_end_date
+        data_type: date
+        description: >
+          The date this record is valid to. For current records, this will be 9999-12-31. The record_start_date and
+          record_end_date are exclusive, meaning that a query such as `select * from dim_subscription where 
+          date '2022-03-01' between record_start_date and record_end_date` should only return one row per user_id. 
+
+      - name: is_current_record
+        data_type: boolean
+        description: >
+          Indicates whether this is the current active record for a subscription. True if this is the current record.
+
+      - name: record_created_dttm
+        data_type: timestamptz
+        description: "The date and time the record was first created."
+
+      - name: record_updated_dttm
+        data_type: timestamptz
+        description: "The date and time the record was last updated."

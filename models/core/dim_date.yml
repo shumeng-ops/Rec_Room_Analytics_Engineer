@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "A simple date dimension with limited attributes as an example structure only."
+    columns:
+      - name: date
+        description: "The full/natural date."
+        tests:
+          - not_null
+          - unique
+      - name: year
+        description: "The year number. For 4/1/2023, this would be 2023."
+        tests:
+          - not_null
+      - name: quarter
+        description: "The quarter number of the year. For 4/1/2023, this would be 2."
+        tests:
+          - not_null
+      - name: month
+        description: "The month number of the year. For 4/1/2023, this would be 4."
+        tests:
+          - not_null
+      - name: year_month
+        description: "The formatted year and month. For 4/1/2023, this would be 2023-04."
+        tests:
+          - not_null

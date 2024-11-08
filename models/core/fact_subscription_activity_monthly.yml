@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: fact_subscription_activity_monthly
+    description: >
+      This table includes a summary of subscription activity and base metrics merged together, aggregated
+      to the month level to show combined measures such as churn rate and growth.
+    columns:
+      - name: ds
+        data_type: date
+        description: "The month the activity occurred. For base metrics, this is as of the beginning of the month."
+
+      - name: begin_base_mrc
+        data_type: decimal(32,2)
+        description: "The monthly recurring charges from all subscription tiers as of the last day of the previous month."
+
+      - name: begin_base_cnt
+        data_type: int
+        description: "The total number of subscriptions active as of the last day of the previous month."
+
+      - name: tier_1299_cnt
+        data_type: int
+        description: "The total number of subscriptions active on the 12.99 tier as of the last day of the previous month."
+
+      - name: tier_799_cnt
+        data_type: int
+        description: "The total number of subscriptions active on the 7.99 tier as of the last day of the previous month."
+
+      - name: tier_099_cnt
+        data_type: int
+        description: "The total number of subscriptions active on the 0.99 tier as of the last day of the previous month."
+
+      - name: net_subscriber_cnt
+        data_type: int
+        description: "The net change of subscriptions added and removed during the month."
+
+      - name: growth_rate
+        data_type: decimal(32,4)
+        description: >
+          The growth rate of subscriptions, calculated as the net_subscriber_cnt / begin_base_cnt. This will be NULL 
+          on the first month. 
+
+      - name: net_mrc_amt
+        data_type: decimal(32,2)
+        description: "The net change in subscription MRC added and removed during the month."
+
+      - name: add_cnt
+        data_type: int
+        description: "The total number of subscriptions added at any time during the month."
+
+      - name: readd_cnt
+        data_type: int
+        description: >
+          The total number of subscriptions added at any time during the month where the user had a previous
+          subscription at any time in the past.
+
+      - name: avg_days_to_readd
+        data_type: decimal(32,2)
+        description: "The average number of days readds were inactive before they started a new subscription."
+
+      - name: upgrade_cnt
+        data_type: int
+        description: >
+          The total number of subscriptions reactivated at any time during the month that were at a higher tier 
+          than they had previously.
+
+      - name: downgrade_cnt
+        data_type: int
+        description: >
+          The total number of subscriptions reactivated at any time during the month that were at a lower tier 
+          than they had previously.
+
+      - name: remove_cnt
+        data_type: int
+        description: "The number of subscriptions that were ended at any time during the month."
+
+      - name: churn_rate
+        data_type: decimal(32,4)
+        description: "The percentage of the total subscribers active at the beginning of the month that deactivated."
+
